@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  Manifeste du paquet d'application Autodesk.
+
+  C'est ce fichier qui fait de l'ensemble un vrai plugin installe, et non des fichiers
+  deposes a la main : Navisworks parcourt %APPDATA%\Autodesk\ApplicationPlugins et
+  %PROGRAMDATA%\Autodesk\ApplicationPlugins au demarrage, lit chaque PackageContents.xml,
+  et charge les composants dont les exigences correspondent a la version en cours.
+
+  Consequences, toutes voulues :
+    - installation sans droits administrateur (le dossier est sous %APPDATA%) ;
+    - desinstallation = suppression du dossier du paquet ;
+    - aucun fichier depose dans le repertoire d'installation de Navisworks ;
+    - le millesime est declare, donc rien ne se charge dans une version non prise en charge.
+
+  Code de serie par millesime, releve sur les paquets tiers installes sur le poste :
+    Nw18 = 2021   Nw19 = 2022   Nw20 = 2023   Nw21 = 2024   Nw22 = 2025   Nw23 = 2026
+  On ne declare que Nw23 : la DLL est compilee contre l'API 2026 et n'a pas ete verifiee
+  ailleurs. Declarer une plage plus large donnerait un plantage au chargement, pas une
+  compatibilite.
+
+  Platform NAVMAN|NAVSIM = Manage et Simulate. Freedom n'execute pas de plugins geres.
+-->
+
+<ApplicationPackage
+    SchemaVersion="1.0"
+    ProductType="Application"
+    AutodeskProduct="Navisworks"
+    Name="Aliova MCP pour Navisworks"
+    Description="Relie Navisworks a Claude par un serveur MCP local : lecture du modele, arborescence, jeux de selection, TimeLiner 4D, Animator, coupes et rendus."
+    AppVersion="1.1.0"
+    FriendlyVersion="1.1.0"
+    Author="Aliova"
+    Icon="./Contents/2026/mcp_32.ico"
+    HelpFile="./Contents/README.md"
+    AppNameSpace="aliova.mcp.navisworks"
+    SupportedLocales="Enu|Fra">
+
+  <CompanyDetails Name="Aliova" Url="https://github.com/Aliova-Inc/aliova-navisworks-mcp" />
+
+  <Components Description="Navisworks 2026">
+    <RuntimeRequirements OS="Win64" Platform="NAVMAN|NAVSIM" Series="Nw23" SeriesMax="Nw23" />
+    <ComponentEntry AppName="Aliova MCP pour Navisworks"
+                    AppType="ManagedPlugin"
+                    Version="1.1.0"
+                    ModuleName="./Contents/2026/NavisworksMcpPlugin.dll"
+                    AppDescription="Serveur MCP local et onglet de ruban Aliova" />
+  </Components>
+
+</ApplicationPackage>

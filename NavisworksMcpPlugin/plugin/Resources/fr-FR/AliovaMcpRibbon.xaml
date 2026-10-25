@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  Onglet de ruban Aliova MCP - version francaise.
+
+  Ce fichier DOIT etre deploye dans un sous-dossier de langue a cote de la DLL :
+      Plugins\NavisworksMcpPlugin\fr-FR\AliovaMcpRibbon.xaml
+  Navisworks resout le XAML nomme par [RibbonLayout] dans le dossier de la langue
+  d'interface courante, avec repli sur en-US. C'est la convention suivie par tous
+  les rubans tiers du poste (BIM Track, BIM 360 Issues, Vim) et par Autodesk.
+
+  Les Id des boutons doivent correspondre EXACTEMENT aux [Command] de
+  AliovaRibbonPlugin.cs, sinon le bouton s'affiche mais reste inerte.
+  Les icones ne sont pas declarees ici : elles viennent de Icon / LargeIcon sur
+  l'attribut [Command], resolus par nom de fichier a cote de la DLL.
+-->
+
+<RibbonControl x:Uid="AliovaMcpRibbon"
+               xmlns="clr-namespace:Autodesk.Windows;assembly=AdWindows"
+               xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+               xmlns:adwi="clr-namespace:Autodesk.Internal.Windows;assembly=AdWindows"
+               xmlns:system="clr-namespace:System;assembly=mscorlib"
+               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+               xmlns:local="clr-namespace:Autodesk.Navisworks.Gui.Roamer.AIRLook;assembly=navisworks.gui.roamer">
+
+  <RibbonTab Id="ID_ALIOVA_MCP_TAB" Title="Aliova">
+
+    <RibbonPanel x:Uid="ID_ALIOVA_MCP_PANEL_SERVER">
+      <RibbonPanelSource x:Uid="ID_ALIOVA_MCP_PANELSOURCE_SERVER"
+                         Id="ID_ALIOVA_MCP_PANELSOURCE_SERVER"
+                         Title="Connexion">
+
+        <local:NWRibbonToggleButton x:Uid="AliovaMcpServerButton"
+                                    Id="ID_ALIOVA_MCP_SERVER"
+                                    Size="Large"
+                                    ShowText="True"
+                                    Orientation="Vertical"
+                                    Text="Serveur&#x0a;MCP"
+                                    ToolTip="Demarrer ou arreter le serveur MCP sur 127.0.0.1:8765" />
+
+      </RibbonPanelSource>
+    </RibbonPanel>
+
+    <RibbonPanel x:Uid="ID_ALIOVA_MCP_PANEL_CLAUDE">
+      <RibbonPanelSource x:Uid="ID_ALIOVA_MCP_PANELSOURCE_CLAUDE"
+                         Id="ID_ALIOVA_MCP_PANELSOURCE_CLAUDE"
+                         Title="Claude">
+
+        <local:NWRibbonToggleButton x:Uid="AliovaMcpChatButton"
+                                    Id="ID_ALIOVA_MCP_CHAT"
+                                    Size="Large"
+                                    ShowText="True"
+                                    Orientation="Vertical"
+                                    Text="Chat&#x0a;Claude"
+                                    ToolTip="Afficher ou masquer le panneau de discussion Claude" />
+
+      </RibbonPanelSource>
+    </RibbonPanel>
+
+    <RibbonPanel x:Uid="ID_ALIOVA_MCP_PANEL_ABOUT">
+      <RibbonPanelSource x:Uid="ID_ALIOVA_MCP_PANELSOURCE_ABOUT"
+                         Id="ID_ALIOVA_MCP_PANELSOURCE_ABOUT"
+                         Title="Aide">
+
+        <local:NWRibbonButton x:Uid="AliovaMcpAboutButton"
+                              Id="ID_ALIOVA_MCP_ABOUT"
+                              Size="Large"
+                              ShowText="True"
+                              Orientation="Vertical"
+                              Text="A&#x0a;propos"
+                              ToolTip="Version, etat du serveur et outils disponibles" />
+
+      </RibbonPanelSource>
+    </RibbonPanel>
+
+  </RibbonTab>
+
+</RibbonControl>

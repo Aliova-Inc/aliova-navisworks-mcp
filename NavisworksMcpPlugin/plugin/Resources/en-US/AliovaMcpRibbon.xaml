@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  Aliova MCP ribbon tab - English version, also the fallback locale.
+
+  This file MUST be deployed in a language sub-folder next to the DLL:
+      Plugins\NavisworksMcpPlugin\en-US\AliovaMcpRibbon.xaml
+  Navisworks resolves the XAML named by [RibbonLayout] inside the folder of the
+  current UI language, falling back to en-US. Same convention as every
+  third-party ribbon on the machine (BIM Track, BIM 360 Issues, Vim) and Autodesk.
+
+  Button Ids must match the [Command] names in AliovaRibbonPlugin.cs EXACTLY,
+  otherwise the button shows up but does nothing.
+  Icons are not declared here: they come from Icon / LargeIcon on the [Command]
+  attribute, resolved by file name next to the DLL.
+-->
+
+<RibbonControl x:Uid="AliovaMcpRibbon"
+               xmlns="clr-namespace:Autodesk.Windows;assembly=AdWindows"
+               xmlns:wpf="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+               xmlns:adwi="clr-namespace:Autodesk.Internal.Windows;assembly=AdWindows"
+               xmlns:system="clr-namespace:System;assembly=mscorlib"
+               xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+               xmlns:local="clr-namespace:Autodesk.Navisworks.Gui.Roamer.AIRLook;assembly=navisworks.gui.roamer">
+
+  <RibbonTab Id="ID_ALIOVA_MCP_TAB" Title="Aliova">
+
+    <RibbonPanel x:Uid="ID_ALIOVA_MCP_PANEL_SERVER">
+      <RibbonPanelSource x:Uid="ID_ALIOVA_MCP_PANELSOURCE_SERVER"
+                         Id="ID_ALIOVA_MCP_PANELSOURCE_SERVER"
+                         Title="Connection">
+
+        <local:NWRibbonToggleButton x:Uid="AliovaMcpServerButton"
+                                    Id="ID_ALIOVA_MCP_SERVER"
+                                    Size="Large"
+                                    ShowText="True"
+                                    Orientation="Vertical"
+                                    Text="MCP&#x0a;server"
+                                    ToolTip="Start or stop the MCP server on 127.0.0.1:8765" />
+
+      </RibbonPanelSource>
+    </RibbonPanel>
+
+    <RibbonPanel x:Uid="ID_ALIOVA_MCP_PANEL_CLAUDE">
+      <RibbonPanelSource x:Uid="ID_ALIOVA_MCP_PANELSOURCE_CLAUDE"
+                         Id="ID_ALIOVA_MCP_PANELSOURCE_CLAUDE"
+                         Title="Claude">
+
+        <local:NWRibbonToggleButton x:Uid="AliovaMcpChatButton"
+                                    Id="ID_ALIOVA_MCP_CHAT"
+                                    Size="Large"
+                                    ShowText="True"
+                                    Orientation="Vertical"
+                                    Text="Claude&#x0a;chat"
+                                    ToolTip="Show or hide the Claude chat pane" />
+
+      </RibbonPanelSource>
+    </RibbonPanel>
+
+    <RibbonPanel x:Uid="ID_ALIOVA_MCP_PANEL_ABOUT">
+      <RibbonPanelSource x:Uid="ID_ALIOVA_MCP_PANELSOURCE_ABOUT"
+                         Id="ID_ALIOVA_MCP_PANELSOURCE_ABOUT"
+                         Title="Help">
+
+        <local:NWRibbonButton x:Uid="AliovaMcpAboutButton"
+                              Id="ID_ALIOVA_MCP_ABOUT"
+                              Size="Large"
+                              ShowText="True"
+                              Orientation="Vertical"
+                              Text="About"
+                              ToolTip="Version, server state and available tools" />
+
+      </RibbonPanelSource>
+    </RibbonPanel>
+
+  </RibbonTab>
+
+</RibbonControl>

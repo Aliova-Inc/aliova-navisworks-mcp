@@ -1,0 +1,80 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <LangVersion>9.0</LangVersion>
+    <OutputType>Library</OutputType>
+    <RootNamespace>NavisworksMcpPlugin</RootNamespace>
+    <AssemblyName>NavisworksMcpPlugin</AssemblyName>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <!-- Aucun chemin de PDB inscrit dans la DLL livree : il porterait le dossier local de la
+         machine de fabrication, nom d'utilisateur compris. La PDB n'est pas livree de toute
+         facon (build.ps1 ne copie que la DLL). Meme choix que l'installateur. -->
+    <DebugType Condition="'$(Configuration)' == 'Release'">none</DebugType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="Autodesk.Navisworks.Api">
+      <HintPath>C:\Program Files\Autodesk\Navisworks Manage 2026\Autodesk.Navisworks.Api.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Autodesk.Navisworks.Clash">
+      <HintPath>C:\Program Files\Autodesk\Navisworks Manage 2026\Autodesk.Navisworks.Clash.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <!-- TimeLiner managed API (DocumentTimeliner / TimelinerTask / SimulationTaskType).
+         Separate assembly, same pattern as Clash: it is NOT in Autodesk.Navisworks.Api.dll,
+         where IDocumentTimeliner is only an empty marker interface. -->
+    <Reference Include="Autodesk.Navisworks.Timeliner">
+      <HintPath>C:\Program Files\Autodesk\Navisworks Manage 2026\Autodesk.Navisworks.Timeliner.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <!-- Animator : couche interop LcAn* uniquement, il n'existe AUCUNE API managée pour l'animation
+         d'objets (Document n'expose ni scène ni animation). Nécessaire pour la sonde AnimatorTools. -->
+    <Reference Include="navisworks.animator.clr">
+      <HintPath>C:\Program Files\Autodesk\Navisworks Manage 2026\navisworks.animator.clr.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <!-- AdWindows : le ruban Autodesk. Necessaire pour ecrire directement le texte et
+         l'infobulle d'un bouton (RibbonStatus), la seule voie dont on soit sur qu'elle
+         atteigne un bouton de ruban. -->
+    <Reference Include="AdWindows">
+      <HintPath>C:\Program Files\Autodesk\Navisworks Manage 2026\AdWindows.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Drawing" />
+    <!-- Requises par les types AdWindows (collections et ImageSource WPF). -->
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="System.Text.Json" Version="8.0.5" />
+  </ItemGroup>
+
+  <!-- Skills embarques dans la DLL : get_skill les sert a n'importe quel client MCP, sans
+       fichier a deployer a cote. Le nom logique "skills/<fichier>.md" est celui que lit
+       AgentTools. -->
+  <ItemGroup>
+    <EmbeddedResource Include="..\..\Skills\*.md">
+      <LogicalName>skills/%(Filename)%(Extension)</LogicalName>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <!-- Ressources du ruban Aliova. Le chargeur de Navisworks les cherche a des chemins
+       imposes, RELATIFS AU DOSSIER DE LA DLL :
+         <dll>\aliova_32.ico          les icones, nommees dans Icon / LargeIcon
+         <dll>\fr-FR\AliovaMcpRibbon.xaml   la mise en page, dans la langue d'interface
+       Resources\ reproduit donc exactement cette arborescence, et <Link> reporte le chemin
+       relatif dans le dossier de sortie. Ne pas aplatir : un XAML pose a la racine n'est
+       jamais trouve, et une icone posee dans un sous-dossier ne se resout pas. -->
+  <ItemGroup>
+    <Content Include="Resources\**\*">
+      <Link>%(RecursiveDir)%(Filename)%(Extension)</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+</Project>

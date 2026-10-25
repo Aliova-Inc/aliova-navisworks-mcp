@@ -1,0 +1,14 @@
+bin/
+obj/
+*.user
+*.suo
+.vs/
+
+# Fabrication de l'installateur
+installer/obj-bundle/
+installer/AliovaMcpSetup/payload/
+dist/
+
+# L'installateur est publie dans les Releases GitHub, jamais versionne : un binaire dans
+# l'historique y reste pour toujours, avec ce qu'il embarque.
+/MCP Navisworks.exe

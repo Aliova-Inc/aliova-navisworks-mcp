@@ -1,0 +1,44 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <!--
+    Installateur du plugin. WinExe et non Exe : aucune console ne doit apparaitre, c'est
+    tout l'ecart entre un vrai installateur et un script qui deroule du texte.
+
+    Le paquet complet est embarque en ressource, donc l'installateur est UN SEUL fichier a
+    envoyer a un collegue. build.ps1 fabrique payload\bundle.zip avant la compilation.
+
+    net48 : meme socle que Navisworks, present sur tout poste Windows a jour, donc rien a
+    installer au prealable. La lecture du zip et l'ecriture JSON n'utilisent que la
+    bibliotheque de base, aucun paquet NuGet, pour garder le fichier unique.
+  -->
+
+  <PropertyGroup>
+    <TargetFramework>net48</TargetFramework>
+    <OutputType>WinExe</OutputType>
+    <LangVersion>9.0</LangVersion>
+    <UseWindowsForms>true</UseWindowsForms>
+    <AssemblyName>MCP Navisworks</AssemblyName>
+    <RootNamespace>Aliova.McpSetup</RootNamespace>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <AssemblyTitle>Aliova MCP for Navisworks - Setup</AssemblyTitle>
+    <Product>Aliova MCP for Navisworks</Product>
+    <Company>Aliova</Company>
+    <Version>1.1.0</Version>
+    <ApplicationIcon>Resources\setup.ico</ApplicationIcon>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+    <SatelliteResourceLanguages>fr</SatelliteResourceLanguages>
+    <DebugType>none</DebugType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.IO.Compression.FileSystem" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <!-- Le paquet a installer, embarque tel quel. -->
+    <EmbeddedResource Include="payload\bundle.zip" LogicalName="Aliova.McpSetup.bundle.zip" />
+    <EmbeddedResource Include="Resources\logo.png" LogicalName="Aliova.McpSetup.logo.png" />
+  </ItemGroup>
+
+</Project>
