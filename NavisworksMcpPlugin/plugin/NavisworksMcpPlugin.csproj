@@ -6,7 +6,10 @@
     <OutputType>Library</OutputType>
     <RootNamespace>NavisworksMcpPlugin</RootNamespace>
     <AssemblyName>NavisworksMcpPlugin</AssemblyName>
-    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <GenerateAssemblyInfo>true</GenerateAssemblyInfo>
+    <!-- Meme numero que bundle/PackageContents.xml et l'installateur : le bouton A propos
+         l'affiche. Sans lui, la DLL sort en 0.0.0.0. -->
+    <Version>1.1.0</Version>
     <!-- Aucun chemin de PDB inscrit dans la DLL livree : il porterait le dossier local de la
          machine de fabrication, nom d'utilisateur compris. La PDB n'est pas livree de toute
          facon (build.ps1 ne copie que la DLL). Meme choix que l'installateur. -->
