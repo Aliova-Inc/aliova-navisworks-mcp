@@ -261,11 +261,12 @@ namespace NavisworksMcpPlugin.Tools
         /// Types de l'API qui sont des VALEURS ou des objets construits localement : les
         /// modifier ne touche pas au document tant qu'on ne les y insere pas, et l'insertion
         /// passe toujours par une partie du document (DocumentModels, CurrentSelection...),
-        /// elle, classee en ecriture.
+        /// elle, classee en ecriture. Selection : celle d'un Search local est modifiable, celle
+        /// que tient le document (CurrentSelection.Value) est en lecture seule (IsReadOnly).
         /// </summary>
         private static readonly HashSet<string> LocalValueTypes = new HashSet<string>(StringComparer.Ordinal)
         {
-            "ModelItemCollection", "ModelItemEnumerableCollection", "Search", "SearchCondition",
+            "ModelItemCollection", "ModelItemEnumerableCollection", "Search", "SearchCondition", "Selection",
             "SearchConditionCollection", "VariantData", "NamedConstant", "Point3D", "Point2D",
             "Vector3D", "Vector2D", "UnitVector3D", "Rotation3D", "Matrix3", "Transform3D",
             "Transform3DComponents", "BoundingBox3D", "BoundingBox2D", "Color", "Units",
@@ -276,7 +277,7 @@ namespace NavisworksMcpPlugin.Tools
         {
             "get_", "op_", "Get", "Find", "Is", "Has", "Can", "Contains", "To", "Compare",
             "Count", "Equals", "Intersects", "Distance", "Try", "Lookup", "Enumerate", "Query",
-            "Describe", "Format", "Parse", "Resolve"
+            "Describe", "Format", "Parse", "Resolve", "BoundingBox"
         };
 
         private static bool IsNavisworksRead(Type type, string name)

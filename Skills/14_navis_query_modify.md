@@ -42,9 +42,11 @@ plugin (appeler un outil d'isolation depuis `navis_query` est refuse).
 Classe **lecture** sur l'API Navisworks :
 - accesseurs `get`, constructeurs, operateurs ;
 - methodes dont le premier MOT est `Get`, `Find`, `Is`, `Has`, `Can`, `Contains`, `To`, `Compare`,
-  `Count`, `Try`, `Equals`, `Intersects`, `Distance`... (`IsHidden` est une lecture, `Isolate` non) ;
-- tout ce qui touche un type valeur ou construit localement : `ModelItemCollection`, `Search`,
-  `SearchCondition`, `Point3D`, `BoundingBox3D`, `Color`, `VariantData`...
+  `Count`, `Try`, `Equals`, `Intersects`, `Distance`, `BoundingBox`... (`IsHidden` est une lecture,
+  `Isolate` non) ;
+- tout ce qui touche un type valeur ou construit localement : `ModelItemCollection`, `Search`, la
+  `Selection` d'un `Search` (`s.Selection.SelectAll()`), `SearchCondition`, `Point3D`, `BoundingBox3D`,
+  `Color`, `VariantData`...
 
 Tout le reste de l'API est classe **ecriture** : setters, `add_` d'evenement, methodes des parties du
 document (`DocumentModels.SetHidden`, `CurrentSelection.CopyFrom`...), interop `LcOp*` hors `Get`.
@@ -276,7 +278,8 @@ foreach (var it in doc.Models.RootItemDescendantsAndSelf)
     P("--- {0}", it.DisplayName);
     foreach (var cat in it.PropertyCategories)
         foreach (var p in cat.Properties)
-            P("   [{0}] {1} = {2}", cat.DisplayName, p.DisplayName, p.Value.ToDisplayString());
+            P("   [{0}] {1} = {2}", cat.DisplayName, p.DisplayName,
+              p.Value.IsDisplayString ? p.Value.ToDisplayString() : p.Value.ToString());   // ToDisplayString leve sinon
 }
 return n + " elements echantillonnes";
 ```
