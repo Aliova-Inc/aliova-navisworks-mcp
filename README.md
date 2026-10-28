@@ -40,8 +40,6 @@ be reached the same session, without shipping a new build.
 One file, no administrator rights. Download it from the repository's **Releases** page, or
 build it yourself (see *Build from source*).
 
-> The first release is being prepared. Until it is published, build the installer from source.
-
 ```text
 MCP Navisworks.exe
 ```
@@ -218,8 +216,6 @@ atteinte dans la même séance, sans livrer une nouvelle version.
 
 Un seul fichier, aucun droit administrateur. À télécharger dans la page **Releases** du dépôt,
 ou à fabriquer soi-même (voir *Reconstruire*).
-
-> La première version publiée est en préparation. D'ici là, fabriquer l'installateur depuis les sources.
 
 ```text
 MCP Navisworks.exe
